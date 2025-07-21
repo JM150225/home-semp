@@ -10,6 +10,9 @@ class VisitorCounter {
         this.currentVisitorData = null;
         this.totalVisitors = 0;
         this.countryStats = {};
+
+        // ¡AÑADE ESTA LÍNEA O MODIFICALA SI YA LA TIENES!
+        this.backendUrl = 'https://home-semp.onrender.com'; // <<< ¡USA TU URL REAL DE RENDER AQUÍ!
         
         this.init();
     }
