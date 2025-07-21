@@ -1,0 +1,19 @@
+{
+  "name": "workspace",
+  "version": "1.0.0",
+  "main": "api.js",           <-- ¡CAMBIADO A 'api.js'!
+  "scripts": {
+    "start": "node api.js",   <-- ¡AÑADIDO ESTE SCRIPT!
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.1",
+    "cors": "^2.8.5",
+    "drizzle-orm": "^0.44.3",
+    "express": "^5.1.0"
+  }
+}

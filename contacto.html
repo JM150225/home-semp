@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - SEMP</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header SEMP -->
+    <header class="semp-header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="semp-logo">
+                    <i class="fas fa-globe-americas"></i>
+                    SEMP
+                </h1>
+                <nav class="nav-menu">
+                    <a href="index.html" class="nav-link">Inicio</a>
+                    <a href="https://semp-pdf-generator-version-gratuita.netlify.app/" class="nav-link">Generar solicitud de empleo</a>
+                    <a href="https://youtu.be/3iK_72THB8o?si=sBQiYx8HlMLZmvDX" class="nav-link">Plantillas interactivas</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="contact-page">
+        <div class="container">
+            <!-- Encabezado de contacto -->
+            <div class="contact-header">
+                <h1 class="contact-title">
+                    <i class="fas fa-envelope"></i>
+                    Contáctanos
+                </h1>
+                <p class="contact-intro">
+                    Estamos aquí para ayudarte. Ponte en contacto con nosotros a través del formulario o utiliza nuestros canales directos de comunicación.
+                </p>
+            </div>
+
+            <div class="contact-content">
+                <!-- Sección 1: Formulario de Contacto -->
+                <section class="contact-section">
+                    <div class="section-header">
+                        <h1 class="terms-title">
+                            <i class="fas fa-paper-plane"></i>
+                            Envíanos un mensaje
+                        </h1>
+                        <p class="section-description">Completa el formulario y nos pondremos en contacto contigo lo antes posible.</p>
+                    </div>
+
+                    <div class="contact-form-container">
+                        <form class="contact-form" id="contactForm" action="mailto:creative.jm.mx@gmail.com" method="post" enctype="text/plain">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="nombre" class="form-label">
+                                        <i class="fas fa-user"></i>
+                                        Nombre completo *
+                                    </label>
+                                    <input type="text" id="nombre" name="nombre" class="form-input" required placeholder="Tu nombre completo">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="telefono" class="form-label">
+                                        <i class="fas fa-phone"></i>
+                                        Teléfono *
+                                    </label>
+                                    <input type="tel" id="telefono" name="telefono" class="form-input" required placeholder="Tu número de teléfono">
+                                </div>
+
+                                <div class="form-group full-width">
+                                    <label for="email" class="form-label">
+                                        <i class="fas fa-envelope"></i>
+                                        Correo electrónico *
+                                    </label>
+                                    <input type="email" id="email" name="email" class="form-input" required placeholder="tu@email.com">
+                                </div>
+
+                                <div class="form-group full-width">
+                                    <label for="motivo" class="form-label">
+                                        <i class="fas fa-tag"></i>
+                                        Motivo de contacto *
+                                    </label>
+                                    <select id="motivo" name="motivo" class="form-select" required>
+                                        <option value="">Selecciona un motivo</option>
+                                        <option value="soporte-app">Soporte técnico de la aplicación</option>
+                                        <option value="error-bug">Reporte de error o bug</option>
+                                        <option value="sugerencia">Sugerencia o mejora</option>
+                                        <option value="facturacion">Consulta sobre facturación</option>
+                                        <option value="colaboracion">Propuesta de colaboración</option>
+                                        <option value="general">Consulta general</option>
+                                        <option value="otro">Otro</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group full-width">
+                                    <label for="mensaje" class="form-label">
+                                        <i class="fas fa-comment-alt"></i>
+                                        Mensaje *
+                                    </label>
+                                    <textarea id="mensaje" name="mensaje" class="form-textarea" required placeholder="Describe tu consulta o mensaje detalladamente..." rows="6"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn-submit">
+                                    <i class="fas fa-paper-plane"></i>
+                                    Enviar mensaje
+                                </button>
+                                <button type="reset" class="btn-reset">
+                                    <i class="fas fa-undo"></i>
+                                    Limpiar formulario
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- Sección 2: Información de contacto directo -->
+                <section class="contact-section">
+                    <div class="section-header">
+                        <h2 class="terms-title">
+                            <i class="fas fa-address-card"></i>
+                            Información de contacto
+                        </h2>
+                        <p class="section-description">También puedes contactarnos directamente a través de estos medios.</p>
+                    </div>
+
+                    <div class="contact-info-grid">
+                        <div class="contact-info-card">
+                            <div class="contact-info-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-info-content">
+                                <h3>Correo electrónico</h3>
+                                <p>Para consultas generales y soporte</p>
+                                <a href="mailto:creative.jm.mx@gmail.com" class="contact-link">creative.jm.mx@gmail.com</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-info-card">
+                            <div class="contact-info-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-info-content">
+                                <h3>Teléfono</h3>
+                                <p>Atención telefónica directa</p>
+                                <a href="tel:+523334622520" class="contact-link">33 3462 2520</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-info-card">
+                            <div class="contact-info-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-info-content">
+                                <h3>Horario de atención</h3>
+                                <p>Lunes a Viernes: 9:00 AM - 6:00 PM</p>
+                                <p>Sábados: 10:00 AM - 2:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Sección 3: Preguntas Frecuentes (FAQ) -->
+                <section class="contact-section">
+                    <div class="section-header">
+                        <h2 class="terms-title">
+                            <i class="fas fa-question-circle"></i>
+                            Preguntas frecuentes
+                        </h2>
+                        <p class="section-description">Encuentra respuestas rápidas a las consultas más comunes.</p>
+                    </div>
+
+                    <div class="faq-container">
+                        <div class="faq-category">
+                            <h3 class="faq-category-title">
+                                <i class="fas fa-mobile-alt"></i>
+                                Sobre la aplicación
+                            </h3>
+                            <div class="faq-items">
+                                <div class="faq-item">
+                                    <div class="faq-question">
+                                        <h4>¿La aplicación es gratuita?</h4>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <div class="faq-answer">
+                                        <p>Ofrecemos una versión gratuita con marca de agua y una versión premium de pago sin marca de agua con funciones adicionales.</p>
+                                    </div>
+                                </div>
+
+                                <div class="faq-item">
+                                    <div class="faq-question">
+                                        <h4>¿Mis datos están seguros?</h4>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <div class="faq-answer">
+                                        <p>Absolutamente. Nuestra aplicación funciona completamente en tu dispositivo. No recopilamos, almacenamos ni transmitimos ningún dato personal.</p>
+                                    </div>
+                                </div>
+
+                                <div class="faq-item">
+                                    <div class="faq-question">
+                                        <h4>¿En qué dispositivos funciona?</h4>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <div class="faq-answer">
+                                        <p>La aplicación es compatible con navegadores modernos en computadoras, tabletas y smartphones.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="faq-category">
+                            <h3 class="faq-category-title">
+                                <i class="fas fa-file-pdf"></i>
+                                Generación de PDFs
+                            </h3>
+                            <div class="faq-items">
+                                <div class="faq-item">
+                                    <div class="faq-question">
+                                        <h4>¿Puedo personalizar el diseño del CV?</h4>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <div class="faq-answer">
+                                        <p>Sí, ofrecemos varios diseños profesionales y opciones de personalización para que tu CV destaque.</p>
+                                    </div>
+                                </div>
+
+                                <div class="faq-item">
+                                    <div class="faq-question">
+                                        <h4>¿Qué calidad tienen los PDFs generados?</h4>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <div class="faq-answer">
+                                        <p>Generamos PDFs de alta calidad, optimizados para impresión y visualización digital profesional.</p>
+                                    </div>
+                                </div>
+
+                                <div class="faq-item">
+                                    <div class="faq-question">
+                                        <h4>¿Puedo editar el PDF después de generarlo?</h4>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <div class="faq-answer">
+                                        <p>Los PDFs generados son documentos finales. Para hacer cambios, debes volver a la aplicación y generar un nuevo PDF.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="faq-category">
+                            <h3 class="faq-category-title">
+                                <i class="fas fa-headset"></i>
+                                Soporte técnico
+                            </h3>
+                            <div class="faq-items">
+                                <div class="faq-item">
+                                    <div class="faq-question">
+                                        <h4>¿Qué hago si encuentro un error?</h4>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <div class="faq-answer">
+                                        <p>Puedes reportar errores a través del formulario de contacto seleccionando "Reporte de error o bug". Incluye detalles del problema.</p>
+                                    </div>
+                                </div>
+
+                                <div class="faq-item">
+                                    <div class="faq-question">
+                                        <h4>¿Ofrecen soporte técnico?</h4>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <div class="faq-answer">
+                                        <p>Sí, ofrecemos soporte técnico a través de correo electrónico y teléfono durante nuestro horario de atención.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Sección 4: Redes Sociales -->
+                <section class="contact-section">
+                    <div class="section-header">
+                        <h2 class="terms-title">
+                            <i class="fas fa-share-alt"></i>
+                            Síguenos en redes sociales
+                        </h2>
+                        <p class="section-description">Conéctate con nosotros en nuestras plataformas sociales para estar al día con novedades y actualizaciones.</p>
+                    </div>
+
+                    <div class="social-media-grid">
+                        <a href="https://www.facebook.com/profile.php?id=61578844130448" class="social-card facebook" target="_blank" rel="noopener">
+                            <div class="social-icon">
+                                <i class="fab fa-facebook-f"></i>
+                            </div>
+                            <div class="social-content">
+                                <h4>Facebook</h4>
+                                <p>Síguenos para noticias y actualizaciones</p>
+                            </div>
+                        </a>
+
+                        <a href="https://www.youtube.com/@Creative-JM" class="social-card youtube" target="_blank" rel="noopener">
+                            <div class="social-icon">
+                                <i class="fab fa-youtube"></i>
+                            </div>
+                            <div class="social-content">
+                                <h4>YouTube</h4>
+                                <p>Tutoriales y videos informativos</p>
+                            </div>
+                        </a>
+
+                        <a href="https://wa.me/523334622520" class="social-card whatsapp" target="_blank" rel="noopener">
+                            <div class="social-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div class="social-content">
+                                <h4>WhatsApp</h4>
+                                <p>Soporte directo y rápido</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="social-note">
+                        <i class="fas fa-info-circle"></i>
+                        <p><strong>Nota:</strong> El tiempo de respuesta puede variar según la hora del día o la circunstancia de horario..</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 SEMP - Creative-JM. Todos los derechos reservados.</p>
+                <div class="footer-links">
+                    <a href="privacidad.html" class="footer-link">Privacidad</a>
+                    <a href="terminos.html" class="footer-link">Términos</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript para FAQ interactivo -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // FAQ Toggle
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                const answer = item.querySelector('.faq-answer');
+                const icon = question.querySelector('i');
+                
+                question.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    
+                    // Cerrar todos los otros items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                            otherItem.querySelector('.faq-answer').style.maxHeight = '0';
+                            otherItem.querySelector('.faq-question i').style.transform = 'rotate(0deg)';
+                        }
+                    });
+                    
+                    // Toggle item actual
+                    if (isActive) {
+                        item.classList.remove('active');
+                        answer.style.maxHeight = '0';
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        item.classList.add('active');
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+
+            // Formulario de contacto
+            const contactForm = document.getElementById('contactForm');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Recopilar datos del formulario
+                const formData = new FormData(contactForm);
+                const data = {};
+                for (let [key, value] of formData.entries()) {
+                    data[key] = value;
+                }
+                
+                // Crear el cuerpo del email
+                const emailBody = `
+Nombre: ${data.nombre}
+Teléfono: ${data.telefono}
+Email: ${data.email}
+Motivo: ${data.motivo}
+
+Mensaje:
+${data.mensaje}
+                `.trim();
+                
+                // Crear el enlace mailto
+                const subject = `Contacto desde SEMP - ${data.motivo}`;
+                const mailtoLink = `mailto:creative.jm.mx@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+                
+                // Abrir cliente de correo
+                window.location.href = mailtoLink;
+                
+                // Mostrar mensaje de confirmación
+                alert('Se abrirá tu cliente de correo para enviar el mensaje. Si no se abre automáticamente, puedes copiar los datos y enviarlos manualmente a creative.jm.mx@gmail.com');
+            });
+        });
+    </script>
+</body>
+</html>
