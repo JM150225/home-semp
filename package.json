@@ -1,8 +1,9 @@
 {
   "name": "workspace",
   "version": "1.0.0",
-  "main": "script.js",
+  "main": "server/api.js",           <-- ¡CAMBIADO PARA APUNTAR A LA CARPETA 'server'!
   "scripts": {
+    "start": "node server/api.js",   <-- ¡CAMBIADO PARA APUNTAR A LA CARPETA 'server'!
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
