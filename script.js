@@ -1,19 +1,19 @@
 /**
  * Contador de Visitantes Moderno con Detección de Países por IP
- * Utiliza localStorage para persistencia y API externa para geolocalización
+ * Utiliza localStorage para persistencia y tu propio Backend API para el conteo global
  */
 
 class VisitorCounter {
     constructor() {
         this.storageKey = 'semp_visitor_data';
-        this.apiBaseUrl = 'https://ipapi.co/json/';
+        this.apiBaseUrl = 'https://ipapi.co/json/'; // Esto se mantiene, es para la API de IP externa
         this.currentVisitorData = null;
         this.totalVisitors = 0;
         this.countryStats = {};
-
-        // ¡AÑADE ESTA LÍNEA O MODIFICALA SI YA LA TIENES!
-        this.backendUrl = 'https://home-semp.onrender.com'; // <<< ¡USA TU URL REAL DE RENDER AQUÍ!
         
+        // ¡ESTA ES LA URL DE TU BACKEND DE RENDER!
+        this.backendUrl = 'https://home-semp.onrender.com'; // <<< ASEGÚRATE DE QUE ESTA URL SEA CORRECTA
+
         this.init();
     }
 
@@ -25,7 +25,7 @@ class VisitorCounter {
             // Detectar ubicación del visitante actual
             await this.detectVisitorLocation();
             
-            // Cargar estadísticas globales desde Firebase
+            // Cargar estadísticas globales desde tu Backend API
             await this.loadGlobalStats();
             
             // Verificar si es una visita única (usando IP + fecha)
@@ -33,7 +33,7 @@ class VisitorCounter {
             const isNewVisit = !this.hasVisitedToday(visitKey);
             
             if (isNewVisit) {
-                // Registrar nueva visita en Firebase (contador global)
+                // Registrar nueva visita en tu Backend API (contador global)
                 await this.registerGlobalVisit();
                 
                 // Marcar como visitado hoy
@@ -76,7 +76,7 @@ class VisitorCounter {
     }
 
     /**
-     * Carga los datos almacenados en localStorage
+     * Carga los datos almacenados en localStorage (solo como fallback)
      */
     loadStoredData() {
         try {
@@ -147,6 +147,7 @@ class VisitorCounter {
 
     /**
      * Incrementa el contador de visitantes y actualiza estadísticas por país
+     * (Esta función es ahora un auxiliar local, la lógica principal está en el backend)
      */
     incrementVisitorCount() {
         this.totalVisitors++;
@@ -343,129 +344,75 @@ class VisitorCounter {
     }
 
     /**
-     * Registra visita en Firebase (contador global real)
+     * Registra visita en el Backend API (contador global real)
      */
     async registerGlobalVisit() {
         try {
-            // URL del servicio de contador global (REST API)
-            const firebaseUrl = 'https://semp-counter-default-rtdb.firebaseio.com/';
-            
-            // Obtener contador actual
-            const currentResponse = await fetch(`${firebaseUrl}counter.json`);
-            let currentCount = 0;
-            
-            if (currentResponse.ok) {
-                const data = await currentResponse.json();
-                currentCount = data?.total || 0;
-            }
-            
-            // Incrementar contador
-            const newCount = currentCount + 1;
-            
-            // Actualizar contador en Firebase
-            await fetch(`${firebaseUrl}counter.json`, {
-                method: 'PUT',
+            // Envía los datos del visitante al backend para que registre la visita
+            const response = await fetch(`${this.backendUrl}/api/visit`, {
+                method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    total: newCount,
-                    lastUpdate: new Date().toISOString()
-                })
+                body: JSON.stringify(this.currentVisitorData) // Envía todos los datos del visitante
             });
-            
-            // Registrar país si existe
-            if (this.currentVisitorData && this.currentVisitorData.country) {
-                await this.registerCountryStats();
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
             
-            this.totalVisitors = newCount;
-            console.log('✅ Contador global actualizado:', newCount);
+            const data = await response.json();
+            // Actualiza los contadores locales con la respuesta del backend
+            this.totalVisitors = data.totalVisitors;
+            this.countryStats = data.countryStats;
+            
+            console.log('✅ Contador global actualizado por el backend:', this.totalVisitors);
             
         } catch (error) {
-            console.error('Error actualizando contador global:', error);
-            // Fallback a localStorage si Firebase falla
-            this.incrementVisitorCount();
+            console.error('Error registrando visita global en el backend:', error);
+            // Fallback a localStorage si el backend falla o hay un error de red
+            this.incrementVisitorCount(); // Incrementa localmente para al menos tener una idea
         }
     }
 
     /**
-     * Registra estadísticas por país en Firebase
-     */
-    async registerCountryStats() {
-        try {
-            const firebaseUrl = 'https://semp-counter-default-rtdb.firebaseio.com/';
-            const country = this.currentVisitorData.country;
-            const countryCode = this.currentVisitorData.countryCode;
-            
-            // Obtener estadísticas actuales del país
-            const countryResponse = await fetch(`${firebaseUrl}countries/${country}.json`);
-            let countryCount = 0;
-            
-            if (countryResponse.ok) {
-                const data = await countryResponse.json();
-                countryCount = data?.count || 0;
-            }
-            
-            // Incrementar contador del país
-            await fetch(`${firebaseUrl}countries/${country}.json`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    count: countryCount + 1,
-                    countryCode: countryCode,
-                    lastUpdate: new Date().toISOString()
-                })
-            });
-            
-        } catch (error) {
-            console.error('Error registrando estadísticas de país:', error);
-        }
-    }
-
-    /**
-     * Carga estadísticas globales de Firebase
+     * Carga estadísticas globales desde el Backend API
      */
     async loadGlobalStats() {
         try {
-            const firebaseUrl = 'https://semp-counter-default-rtdb.firebaseio.com/';
+            // Cargar estadísticas desde tu API de Render
+            const response = await fetch(`${this.backendUrl}/api/stats`);
             
-            // Cargar contador total
-            const counterResponse = await fetch(`${firebaseUrl}counter.json`);
-            if (counterResponse.ok) {
-                const counterData = await counterResponse.json();
-                this.totalVisitors = counterData?.total || 0;
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
             
-            // Cargar estadísticas por país
-            const countriesResponse = await fetch(`${firebaseUrl}countries.json`);
-            if (countriesResponse.ok) {
-                const countriesData = await countriesResponse.json();
-                if (countriesData) {
-                    this.countryStats = {};
-                    Object.entries(countriesData).forEach(([country, data]) => {
-                        this.countryStats[country] = {
-                            count: data.count,
-                            countryCode: data.countryCode,
-                            lastVisit: data.lastUpdate
-                        };
-                    });
-                }
-            }
+            const data = await response.json();
             
-            console.log('📊 Estadísticas globales cargadas desde Firebase');
+            // Asigna los datos recibidos del backend
+            this.totalVisitors = data.totalVisitors || 0;
+            
+            // Convierte el array de countryStats a un objeto para fácil acceso
+            this.countryStats = data.countryStats.reduce((acc, current) => {
+                acc[current.country] = {
+                    count: current.totalVisitors,
+                    countryCode: current.countryCode,
+                    lastVisit: current.lastUpdate // Asume que backend devuelve last_update
+                };
+                return acc;
+            }, {});
+            
+            console.log('📊 Estadísticas globales cargadas desde tu Backend API');
             
         } catch (error) {
-            console.error('Error cargando estadísticas globales:', error);
-            // Fallback a localStorage
+            console.error('Error cargando estadísticas globales desde el backend:', error);
+            // Fallback a localStorage si el backend falla o hay un error de red
             this.loadStoredData();
         }
     }
 
     /**
-     * Guarda los datos en localStorage (backup)
+     * Guarda los datos en localStorage (backup y para estado inicial antes de API)
      */
     saveData() {
         try {
@@ -501,10 +448,14 @@ class VisitorCounter {
 
     /**
      * Reinicia todos los datos (método auxiliar para desarrollo)
+     * NOTA: Este método solo limpia el localStorage local. Para resetear el backend,
+     * necesitarías una llamada API /api/reset si la implementaste y la activas.
      */
     resetAllData() {
-        if (confirm('¿Estás seguro de que quieres reiniciar todos los datos del contador?')) {
+        if (confirm('¿Estás seguro de que quieres reiniciar todos los datos del contador (solo localmente)?')) {
             localStorage.removeItem(this.storageKey);
+            // Si quieres resetear el backend también, necesitarías una llamada fetch aquí:
+            // fetch(`${this.backendUrl}/api/reset`, { method: 'POST' }).then(() => location.reload());
             location.reload();
         }
     }
@@ -543,8 +494,17 @@ document.addEventListener('DOMContentLoaded', () => {
         window.exportVisitorData = () => window.visitorCounter.exportData();
         
         console.log('🔧 Métodos de desarrollo disponibles:');
-        console.log('- resetVisitorData(): Reinicia todos los datos');
-        console.log('- exportVisitorData(): Exporta los datos como JSON');
+        console.log('- resetVisitorData(): Reinicia todos los datos (solo local)');
+        console.log('- exportVisitorData(): Exporta los datos como JSON (solo local)');
+        // Si tienes /api/reset en tu backend y quieres usarlo desde el frontend en desarrollo
+        // window.resetBackendData = () => {
+        //     if (confirm('¿Estás seguro de que quieres resetear los datos en el backend?')) {
+        //         fetch(window.visitorCounter.backendUrl + '/api/reset', { method: 'POST' })
+        //             .then(res => res.json())
+        //             .then(data => { console.log('Backend reset:', data); location.reload(); })
+        //             .catch(err => console.error('Error reseteando backend:', err));
+        //     }
+        // };
     }
 });
 
@@ -564,6 +524,7 @@ console.log(`
 ═══════════════════════════════════════
 ✓ Detección de ubicación por IP habilitada
 ✓ Persistencia local configurada
+✓ Conectado a tu Backend API de Render
 ✓ Animaciones CSS activas
 ✓ Diseño responsive activado
 
